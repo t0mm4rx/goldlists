@@ -1,0 +1,114 @@
+*:focus {outline: none;}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: "Montserrat";
+    overflow: hidden;
+}
+
+h1 {
+    font-family: "Poppins";
+}
+
+@keyframes fadein {
+    from {
+        transform: translateY(50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes popup-anim {
+    from {
+        top: -100px;
+    }
+    to {
+        top: 10px;
+    }
+}
+
+@keyframes popup-anim-hide {
+    from {
+        top: 10px;
+    }
+    to {
+        top: -100px;
+    }
+}
+
+input {
+    border: 0;
+    border-bottom: 1px solid #AAA;
+    font-size: 1em;
+    transition: border .3s ease;
+    width: 100%;
+    padding: 15px;
+}
+
+input:focus {
+    border-bottom: 1px solid #8ec5fc;
+}
+
+input::placeholder {
+    font-weight: 200;
+}
+
+input:focus::placeholder {
+    color: #8ec5fc;
+}
+
+.icon-input {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.icon-input > svg {
+    min-width: 40px;
+    width: 40px;
+}
+
+button {
+    padding: 15px;
+    border: none;
+    font-size: 1.2em;
+    color: white;
+    font-weight: 900;
+    background-image: linear-gradient(220deg, #e0c3fc 0%, #8ec5fc 100%);
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all .3s ease;
+}
+
+button:hover {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    transform: scale(1.01);
+}
+
+button svg {
+    margin: 0 10px 0 10px;
+}
+
+.popup {
+    position: absolute;
+    z-index: 10;
+    background-image: linear-gradient(45deg, #ff0844 0%, #ff5159 100%);
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: popup-anim .7s ease;
+    transition: top .7s ease;
+}
+
+.popup-hidden {
+    top: -100px;
+}
