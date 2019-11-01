@@ -32,18 +32,18 @@
         <h1>GoldLists</h1>
         <div id="drawer">
             <form action="form_login.php" method="POST" id="form" class="form" open>
-                <div class="icon-input"><i class="fas fa-user"></i><input name="login" type="text" id="login" placeholder="EMAIL"></div>
-                <div class="icon-input"><i class="fas fa-key"></i><input name="password" type="password" id="login" placeholder="PASSWORD"></div>
+                <div class="icon-input"><i class="fas fa-user"></i><input name="login" type="text" placeholder="LOGIN"></div>
+                <div class="icon-input"><i class="fas fa-key"></i><input name="password" type="password" placeholder="PASSWORD"></div>
                 <button type="submit">LOGIN<i class="fas fa-arrow-right"></i></button>
                 <span class="no-account" id="no-account">No account yet ?</span>
             </form>
-            <div id="form-signup" class="form">
-                <div class="icon-input"><i class="fas fa-user"></i><input type="text" id="login" placeholder="EMAIL"></div>
-                <div class="icon-input"><i class="fas fa-key"></i><input type="password" id="login" placeholder="PASSWORD"></div>
-                <div class="icon-input"><i class="fas fa-key"></i><input type="password" id="login" placeholder="COMFIRM PASSWORD"></div>
-                <button type="button" name="button">SIGN UP<i class="fas fa-arrow-right"></i></button>
+            <form action="form_signup.php" method="POST" id="form-signup" class="form">
+                <div class="icon-input"><i class="fas fa-user"></i><input name="login" type="text" placeholder="LOGIN"></div>
+                <div class="icon-input"><i class="fas fa-at"></i><input name="mail" type="email" placeholder="EMAIL"></div>
+                <div class="icon-input"><i class="fas fa-key"></i><input name="password" type="password" placeholder="PASSWORD"></div>
+                <button type="submit" name="button">SIGN UP<i class="fas fa-arrow-right"></i></button>
                 <span class="no-account" id="already-account">Already have an account ?</span>
-            </div>
+            </form>
         </div>
     </div>
 
