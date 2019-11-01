@@ -1,5 +1,5 @@
 <?php
-$url = "http://localhost/goldlists/api.php?service=signup&password=" . $_POST['password'] . "&login=" . $_POST["login"] . "&mail=" .  $_POST["mail"];
+$url = "http://localhost/goldlists/api.php?service=signup&password=" . sha1($_POST['password']) . "&login=" . $_POST["login"] . "&mail=" .  $_POST["mail"];
 $request = json_decode(file_get_contents($url));
 
 if ($request->code == 1)
