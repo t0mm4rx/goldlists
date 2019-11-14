@@ -148,3 +148,63 @@ a > i, a > svg {
     border-top: 2px dashed #CCC;
     margin: 20px 0px;
 }
+
+nav {
+    width: 100vw;
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: space-between;
+    background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+}
+
+nav button {
+    background: none;
+    font-size: 2em;
+}
+
+nav button:hover {
+    box-shadow: none;
+    transform: scale(1);
+}
+
+nav h1 {
+    color: white;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.task-list > li {
+    display: flex;
+    align-items: center;
+    transition: all .3s ease;
+    margin: 3px 0;
+}
+
+.task-list > li > #checkbox {
+    margin-right: 10px;
+}
+
+.task-list > li.done > #checkbox {
+    background-color: #6A8;
+    border-color: rgba(0, 0, 0 ,0);
+}
+
+.task-list > li.done {
+    color: #888;
+    text-decoration: line-through;
+}
+
+#checkbox {
+    width: 13px;
+    height: 13px;
+    background: none;
+    border: 3px solid #CCC;
+    border-radius: 3px;
+    transition: all .3s ease;
+}

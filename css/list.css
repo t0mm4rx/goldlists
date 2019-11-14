@@ -1,0 +1,9 @@
+#page {
+    padding: 20px;
+    overflow-y: auto;
+    height: calc(100vh - 170px);
+}
+
+#add-button {
+    margin: 20px auto 0px auto;
+}
