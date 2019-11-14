@@ -1,3 +1,10 @@
+body {
+    background-color: #EEE;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 #off-canvas {
     width: 70vw;
     height: 100vh;
@@ -95,4 +102,94 @@ nav button:hover {
 
 nav h1 {
     color: white;
+}
+
+#list-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+    grid-auto-rows: min-content;
+    overflow-y: auto;
+    height: calc(100vh - 80px);
+    padding: 15px;
+}
+
+@media (max-width: 1400px)
+{
+    #list-container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (max-width: 1000px)
+{
+    #list-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px)
+{
+    #list-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.list {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    border-radius: 10px;
+    width: 100%;
+    transition: all .3s ease;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.list:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.list h3 {
+    margin: 10px 0px;
+}
+
+.list p {
+    margin: 0px;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.task-list > li {
+    display: flex;
+    align-items: center;
+    transition: all .3s ease;
+    margin: 3px 0;
+}
+
+.task-list > li > #checkbox {
+    margin-right: 10px;
+}
+
+.task-list > li.done > #checkbox {
+    background-color: #6A8;
+    border-color: rgba(0, 0, 0 ,0);
+}
+
+.task-list > li.done {
+    color: #888;
+    text-decoration: line-through;
+}
+
+#checkbox {
+    width: 13px;
+    height: 13px;
+    background: none;
+    border: 3px solid #CCC;
+    border-radius: 3px;
+    transition: all .3s ease;
 }

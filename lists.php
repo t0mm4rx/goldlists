@@ -28,6 +28,45 @@
                         <i class="fas fa-plus"></i>
                     </button>
             </nav>
+            <div id="list-container">
+
+                <div class="list">
+                    <h3>TODO</h3>
+                    <p>
+                        Tasks to be done before 01/01/2020.
+                    </p>
+                    <div id="separator"></div>
+                    <ul class="task-list">
+                        <li><div id="checkbox"></div>Call Micheal</li>
+                        <li><div id="checkbox"></div>Clean the living room</li>
+                        <li><div id="checkbox"></div>Buy bread</li>
+                        <li><div id="checkbox"></div>Finish homework</li>
+                        <li class="done"><div id="checkbox"></div>Be awesome</li>
+                    </ul>
+                </div>
+
+                <div class="list">
+                    <h3>IT course</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat facere asperiores, voluptas enim nihil, porro temporibus nam, autem beatae assumenda consequuntur soluta hic, harum consectetur. Quis nobis temporibus, neque de nihil, porro temporibus nam...
+                    </p>
+                </div>
+
+                <div class="list">
+                    <h3>Shopping list</h3>
+                    <p></p>
+                    <ul class="task-list">
+                        <li><div id="checkbox"></div>Sugar</li>
+                        <li><div id="checkbox"></div>Bread</li>
+                        <li><div id="checkbox"></div>Pastas</li>
+                        <li><div id="checkbox"></div>Mozarellas</li>
+                        <li><div id="checkbox"></div>Salad</li>
+                        <li><div id="checkbox"></div>Pesto</li>
+                    </ul>
+                </div>
+
+
+            </div>
         </div>
 
     <script src="./js/lists.js"></script>
