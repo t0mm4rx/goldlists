@@ -127,9 +127,18 @@ body {
 }
 
 .list h3 {
-    margin: 10px 0px;
+    margin: 10px 0px 0px 0px;
+    font-size: 1.2em;
 }
 
-.list p {
+.list h5 {
+    margin: 5px 0px 20px 0px;
+    font-weight: 400;
+    font-size: 1em;
+}
+
+.list pre {
     margin: 0px;
+    font-size: .8em;
+    font-family: 'Montserrat';
 }

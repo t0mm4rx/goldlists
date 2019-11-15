@@ -1,3 +1,8 @@
+<?php
+$url = "http://localhost/goldlists/api.php?service=open_list&id=" . $_GET['id'];
+$list = json_decode(json_decode(file_get_contents($url))->message);
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -8,27 +13,26 @@
     </head>
     <body>
         <nav>
-                <button type="button" name="button" onclick="toggle_menu()">
+                <button type="button" name="button" onclick="document.location.href='./lists.php'">
                     <i class="fas fa-arrow-left"></i>
                 </button>
-                <h1>TODO</h1>
+                <h1><?php echo $list->title; ?></h1>
                 <button type="button" name="button" onclick="">
                     <i class="far fa-trash-alt"></i>
                 </button>
         </nav>
 
         <div id="page">
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis neque, ullam necessitatibus maiores rerum est. Accusantium illum, tenetur ipsa ratione obcaecati quasi tempore magnam, voluptas cupiditate magni laborum quis, dolorum.
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo autem ipsa quibusdam soluta doloremque reprehenderit! Aliquam minima consectetur quis. Voluptatem, blanditiis, numquam. Aliquam consequuntur sit, maxime tempore, enim illum vero.
-            </p>
-            <div id="separator"></div>
+            <h3><?php echo $list->subtitle ?></h3>
+            <pre>
+                <?php echo $list->text; ?>
+            </pre>
+            <?php if (strlen($list->text) > 0 && count(json_decode($list->checkboxes)) > 0) { ?>
+            <div id="separator"></div> <?php } ?>
             <ul class="task-list">
-                <li><div id="checkbox"></div>Call Micheal</li>
-                <li><div id="checkbox"></div>Clean the living room</li>
-                <li><div id="checkbox"></div>Buy bread</li>
-                <li><div id="checkbox"></div>Finish homework</li>
-                <li class="done"><div id="checkbox"></div>Be awesome</li>
+                <?php foreach (json_decode($list->checkboxes) as $checkbox) { ?>
+                    <li <?php if ($checkbox->checked) { ?> class="done" <?php } ?>><div id="checkbox"></div><?php echo $checkbox->label; ?></li>
+                <?php } ?>
             </ul>
             <button id="add-button"><i class="fas fa-plus"></i>Add task</button>
         </div>

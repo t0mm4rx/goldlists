@@ -184,6 +184,7 @@ nav h1 {
     align-items: center;
     transition: all .3s ease;
     margin: 3px 0;
+    font-size: .8em;
 }
 
 .task-list > li > #checkbox {

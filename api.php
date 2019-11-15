@@ -12,9 +12,40 @@
         case 'signup':
             signup($_GET["mail"], $_GET["login"], $_GET["password"]);
             break;
+        case 'listing':
+            listing($_GET["id_user"], $_GET["id_folder"]);
+            break;
+        case 'open_list':
+            open_list($_GET["id"]);
+            break;
         default:
             output(2, "This service doesn't exist");
-        }
+    }
+
+    function listing($id_user, $id_folder)
+    {
+        $lists = [];
+        global $db;
+        connect_db();
+        $id_user = mysqli_real_escape_string($db, $id_user);
+        $id_folder = mysqli_real_escape_string($db, $id_folder);
+        $sql = "SELECT * FROM `lists` WHERE `id_user` = '$id_user' AND `id_folder` = '$id_folder'";
+        $result = $db->query($sql);
+        while ($row = $result->fetch_array(MYSQLI_ASSOC))
+            $lists[] = $row;
+        output(1, json_encode($lists));
+    }
+
+    function open_list($id)
+    {
+        global $db;
+        connect_db();
+        $id = mysqli_real_escape_string($db, $id);
+        $sql = "SELECT * FROM `lists` WHERE `id` = '$id'";
+        $result = $db->query($sql);
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        output(1, json_encode($row));
+    }
 
     function signup($mail, $login, $password)
     {
@@ -33,8 +64,9 @@
             output(0, "Login or mail already exists");
         }
         $query = "INSERT INTO `users`(`login`, `password`, `mail`, `ip`) VALUES ('$login', '$password', '$mail', '$ip')";
-        if (!$db->query($query))
+        if (!$db->query($query)) {
             output(2, "Error during request execution");
+        }
         output(1, "Account has been successfully created");
     }
 

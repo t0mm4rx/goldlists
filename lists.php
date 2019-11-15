@@ -1,3 +1,8 @@
+<?php
+$url = "http://localhost/goldlists/api.php?service=listing&id_user=12&id_folder=-1";
+$lists = json_decode(json_decode(file_get_contents($url))->message);
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
@@ -29,42 +34,22 @@
                     </button>
             </nav>
             <div id="list-container">
-
-                <div class="list">
-                    <h3>TODO</h3>
-                    <p>
-                        Tasks to be done before 01/01/2020.
-                    </p>
-                    <div id="separator"></div>
+                <?php
+                foreach ($lists as $list) {
+                 ?>
+                <div class="list" onclick="document.location.href='./list.php?id=<?php echo $list->id; ?>';">
+                    <h3><?php echo $list->title;?></h3>
+                    <h5><?php echo $list->subtitle;?></h5>
+                    <pre><?php echo $list->text;?></pre>
+                    <?php if (strlen($list->text) > 0 && count(json_decode($list->checkboxes)) > 0) { ?>
+                    <div id="separator"></div> <?php } ?>
                     <ul class="task-list">
-                        <li><div id="checkbox"></div>Call Micheal</li>
-                        <li><div id="checkbox"></div>Clean the living room</li>
-                        <li><div id="checkbox"></div>Buy bread</li>
-                        <li><div id="checkbox"></div>Finish homework</li>
-                        <li class="done"><div id="checkbox"></div>Be awesome</li>
+                        <?php foreach (json_decode($list->checkboxes) as $checkbox) { ?>
+                            <li <?php if ($checkbox->checked) { ?> class="done" <?php } ?>><div id="checkbox"></div><?php echo $checkbox->label; ?></li>
+                        <?php } ?>
                     </ul>
                 </div>
-
-                <div class="list">
-                    <h3>IT course</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat facere asperiores, voluptas enim nihil, porro temporibus nam, autem beatae assumenda consequuntur soluta hic, harum consectetur. Quis nobis temporibus, neque de nihil, porro temporibus nam...
-                    </p>
-                </div>
-
-                <div class="list">
-                    <h3>Shopping list</h3>
-                    <p></p>
-                    <ul class="task-list">
-                        <li><div id="checkbox"></div>Sugar</li>
-                        <li><div id="checkbox"></div>Bread</li>
-                        <li><div id="checkbox"></div>Pastas</li>
-                        <li><div id="checkbox"></div>Mozarellas</li>
-                        <li><div id="checkbox"></div>Salad</li>
-                        <li><div id="checkbox"></div>Pesto</li>
-                    </ul>
-                </div>
-
+                <?php } ?>
 
             </div>
         </div>
