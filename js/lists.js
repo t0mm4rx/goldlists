@@ -4,7 +4,7 @@ function toggle_menu()
     document.querySelector("#off-canvas").toggleAttribute("open");
 }
 
-function toggle_add()
+function create_list()
 {
-
+  window.location.href = "form_create.php?title=" + prompt("Enter a title") + "&subtitle=" + prompt("Enter a subtitle");
 }

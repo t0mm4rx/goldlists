@@ -18,6 +18,12 @@
         case 'open_list':
             open_list($_GET["id"]);
             break;
+        case 'remove_list':
+            remove_list($_GET["id"]);
+            break;
+        case 'create_list':
+            create_list($_GET["title"], $_GET["subtitle"]);
+            break;
         default:
             output(2, "This service doesn't exist");
     }
@@ -94,8 +100,31 @@
     function connect_db()
     {
         global $db;
-        $db = mysqli_connect("127.0.0.1", "root", "root", "goldlists");
+        $db = mysqli_connect("127.0.0.1:8889", "root", "root", "goldlists");
         if (!$db) {
             output(2, "No connection to database");
         }
+    }
+
+    function remove_list($id)
+    {
+      global $db;
+      connect_db();
+      $id = mysqli_real_escape_string($db, $id);
+      $check = "DELETE FROM `lists` WHERE `id` = '$id'";
+      $check_result = $db->query($check);
+    }
+
+
+    function create_list($title, $subtitle)
+    {
+      global $db;
+      connect_db($db);
+      $title = mysqli_real_escape_string($db, $title);
+      $subtitle = mysqli_real_escape_string($db, $subtitle);
+      $request = "INSERT INTO `lists` (`id`, `id_user`, `id_folder`, `title`, `subtitle`, `text`, `checkboxes`) VALUES (NULL, '2', '-1', '$title', '$subtitle', '', '[]');";
+      if (!$db->query($request)) {
+        output(2, "Error during request execution");
+      }
+      output(1, "List has been successfully created");
     }

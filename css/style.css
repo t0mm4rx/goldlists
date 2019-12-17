@@ -187,11 +187,11 @@ nav h1 {
     font-size: .8em;
 }
 
-.task-list > li > #checkbox {
+.task-list > li > .checkbox {
     margin-right: 10px;
 }
 
-.task-list > li.done > #checkbox {
+.task-list > li.done > .checkbox {
     background-color: #6A8;
     border-color: rgba(0, 0, 0 ,0);
 }
@@ -201,7 +201,7 @@ nav h1 {
     text-decoration: line-through;
 }
 
-#checkbox {
+.checkbox {
     width: 13px;
     height: 13px;
     background: none;

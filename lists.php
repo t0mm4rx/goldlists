@@ -1,5 +1,5 @@
 <?php
-$url = "http://localhost/goldlists/api.php?service=listing&id_user=12&id_folder=-1";
+$url = "http://localhost:8888/api.php?service=listing&id_user=2&id_folder=-1";
 $lists = json_decode(json_decode(file_get_contents($url))->message);
 ?>
 
@@ -29,7 +29,7 @@ $lists = json_decode(json_decode(file_get_contents($url))->message);
                         <i class="fas fa-bars"></i>
                     </button>
                     <h1>My Lists</h1>
-                    <button type="button" name="button" onclick="toggle_add()">
+                    <button type="button" name="button" onclick="create_list()">
                         <i class="fas fa-plus"></i>
                     </button>
             </nav>
