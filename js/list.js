@@ -1,3 +1,5 @@
+var checkpoint = null;
+
 function toggle_task(item)
 {
     item.classList.toggle("done");
@@ -9,7 +11,7 @@ function listen_tasks()
         el.querySelector('div').onclick = () => toggle_task(el);
 }
 
-function remove_list(id)
+function remove_list()
 {
   window.location.href = "form_remove.php?id=" + id;
 }
@@ -47,7 +49,22 @@ function get_list()
 
 function update()
 {
-
+  if (!checkpoint)
+  {
+    checkpoint = get_list();
+    return ;
+  }
+  if (JSON.stringify(checkpoint) != JSON.stringify(get_list()))
+  {
+    checkpoint = get_list();
+    const Http = new XMLHttpRequest();
+    const url='http://localhost:8888/api.php?service=update_list&id=' + id + '&page=' + JSON.stringify(checkpoint);
+    Http.open("GET", url);
+    Http.send();
+    Http.onreadystatechange = (e) => {
+    }
+  }
 }
 
 listen_tasks();
+setInterval(update, 1000);

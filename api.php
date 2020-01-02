@@ -22,7 +22,13 @@
             remove_list($_GET["id"]);
             break;
         case 'create_list':
-            create_list($_GET["title"], $_GET["subtitle"]);
+            create_list($_GET["title"], $_GET["subtitle"], $_GET["id_folder"]);
+            break;
+        case 'update_list':
+            update_list($_GET["id"], $_GET["page"]);
+            break;
+        case 'list_folder':
+            list_folder($_GET["id_user"]);
             break;
         default:
             output(2, "This service doesn't exist");
@@ -35,7 +41,7 @@
         connect_db();
         $id_user = mysqli_real_escape_string($db, $id_user);
         $id_folder = mysqli_real_escape_string($db, $id_folder);
-        $sql = "SELECT * FROM `lists` WHERE `id_user` = '$id_user' AND `id_folder` = '$id_folder'";
+        $sql = "SELECT * FROM `lists` WHERE `id_user` = '$id_user' AND `id_folder` LIKE '$id_folder'";
         $result = $db->query($sql);
         while ($row = $result->fetch_array(MYSQLI_ASSOC))
             $lists[] = $row;
@@ -116,15 +122,82 @@
     }
 
 
-    function create_list($title, $subtitle)
+    function create_list($title, $subtitle, $id_folder)
     {
       global $db;
       connect_db($db);
       $title = mysqli_real_escape_string($db, $title);
       $subtitle = mysqli_real_escape_string($db, $subtitle);
-      $request = "INSERT INTO `lists` (`id`, `id_user`, `id_folder`, `title`, `subtitle`, `text`, `checkboxes`) VALUES (NULL, '2', '-1', '$title', '$subtitle', '', '[]');";
-      if (!$db->query($request)) {
+      $id_folder = mysqli_real_escape_string($db, $id_folder);
+      $request = "INSERT INTO `lists` (`id`, `id_user`, `id_folder`, `title`, `subtitle`, `text`, `checkboxes`) VALUES (NULL, '2', '$id_folder', '$title', '$subtitle', '', '[]');";
+      if (!$db->query($request))
         output(2, "Error during request execution");
-      }
       output(1, "List has been successfully created");
     }
+
+    function update_list($id, $page)
+    {
+      global $db;
+      connect_db($db);
+      $id = mysqli_real_escape_string($db, $id);
+      $data = json_decode($page);
+      $title = mysqli_real_escape_string($db, $data->title);
+      $subtitle = mysqli_real_escape_string($db, $data->subtitle);
+      $text = mysqli_real_escape_string($db, $data->text);
+      foreach ($data->tasks as $task)
+        $task->label = mysqli_real_escape_string($db, $task->label);
+      $tasks = json_encode($data->tasks);
+      $request = "UPDATE `lists` SET `title` = '$title', `subtitle` = '$subtitle', `text` = '$text', `checkboxes` = '$tasks' WHERE `lists`.`id` = $id";
+      if (!$db->query($request))
+        output(2, "Error during request execution");
+      output(1, "List has been successfully updated");
+    }
+
+    function in_folder($folder, &$folders)
+    {
+      foreach ($folders as &$item)
+      {
+        if ($item["label"] == $folder)
+        {
+          $item["count"] += 1;
+          return ;
+        }
+      }
+      $folders[] = [
+        "label" => $folder,
+        "count" => 1
+      ];
+      return ;
+    }
+
+
+    function list_folder($id_user)
+    {
+      global $db;
+      connect_db($db);
+      $folders = [
+          [
+            "label" => "My Lists",
+            "count" => 0
+          ],
+          [
+            "label" => "Important",
+            "count" => 0
+          ],
+          [
+            "label" => "Archived",
+            "count" => 0
+          ],
+          [
+            "label" => "Deleted",
+            "count" => 0
+          ]
+      ];
+      $id_user = mysqli_real_escape_string($db, $id_user);
+      $sql = "SELECT * FROM `lists` WHERE `id_user` = '$id_user'";
+      $result = $db->query($sql);
+      while ($row = $result->fetch_array(MYSQLI_ASSOC))
+          in_folder($row["id_folder"], $folders);
+      output(1, json_encode($folders));
+    }
+?>

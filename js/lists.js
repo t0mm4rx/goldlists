@@ -6,5 +6,5 @@ function toggle_menu()
 
 function create_list()
 {
-  window.location.href = "form_create.php?title=" + prompt("Enter a title") + "&subtitle=" + prompt("Enter a subtitle");
+  window.location.href = "form_create.php?title=" + prompt("Enter a title") + "&subtitle=" + prompt("Enter a subtitle") + "&id_folder=" + id_folder;
 }

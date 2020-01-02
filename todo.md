@@ -1,13 +1,17 @@
 # TODO
 ## API
 - [x] Create a list
-- [ ] Update a list
+- [x] Update a list
 - [x] Verify listing
 - [x] Delte a list
-- [ ] Dynamic url
+- [x] Dynamic url (folders)
 
 ## UI
-- [ ] Create modal to creating a list
+- [ ] Create modal to create a list
+- [ ] Don't show error during the first connection
 
 ## JS
-- [ ] Update content
+- [x] Update content
+
+## GENERAL
+- [ ] Create a new folder

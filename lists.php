@@ -1,5 +1,11 @@
 <?php
-$url = "http://localhost:8888/api.php?service=listing&id_user=2&id_folder=-1";
+if (!isset($_GET["folder"]))
+  $folder = urlencode("My Lists");
+else
+  $folder = urlencode($_GET["folder"]);
+$url = "http://localhost:8888/api.php?service=listing&id_user=2&id_folder=$folder";
+$url_folders = "http://localhost:8888/api.php?service=list_folder&id_user=2";
+$folders = json_decode(json_decode(file_get_contents($url_folders))->message);
 $lists = json_decode(json_decode(file_get_contents($url))->message);
 ?>
 
@@ -10,16 +16,15 @@ $lists = json_decode(json_decode(file_get_contents($url))->message);
         <link rel="stylesheet" href="./css/lists_desktop.css" media="screen and (min-width: 800px)">
         <?php include_once("includes.php"); ?>
         <title>GoldLists - My lists</title>
+        <script>const id_folder = "<?php echo $folder; ?>";</script>
     </head>
     <body>
         <div id="off-canvas">
             <h2>GoldLists</h2>
             <ul>
-                <li class="activated"><a href="#"><span class="badge">7</span>My Lists</a></li>
-                <li><a href="#"><span class="badge">2</span>Important</a></li>
-                <li><a href="#"><span class="badge">0</span>Archived</a></li>
-                <li><a href="#"><span class="badge">1</span>Deleted</a></li>
-                <li><a href="#"><i class="fas fa-plus"></i>Create folder</a></li>
+                <?php foreach ($folders as $item) { ?>
+                      <li <?php if ($item->label == urldecode($folder)) echo 'class="activated"'; ?>><a href="http://localhost:8888/lists.php?&folder=<?php echo $item->label; ?>"><span class="badge"><?php echo $item->count; ?></span><?php echo $item->label; ?></a></li>
+                <?php } ?>
             </ul>
             <img src="./res/illustration-menu.svg" alt="">
         </div>
@@ -28,10 +33,12 @@ $lists = json_decode(json_decode(file_get_contents($url))->message);
                     <button type="button" name="button" onclick="toggle_menu()">
                         <i class="fas fa-bars"></i>
                     </button>
-                    <h1>My Lists</h1>
+                    <h1><?php echo urldecode($folder); ?></h1>
+                    <?php if (urldecode($folder) == 'My Lists') { ?>
                     <button type="button" name="button" onclick="create_list()">
                         <i class="fas fa-plus"></i>
                     </button>
+                  <?php } ?>
             </nav>
             <div id="list-container">
                 <?php
@@ -45,7 +52,7 @@ $lists = json_decode(json_decode(file_get_contents($url))->message);
                     <div id="separator"></div> <?php } ?>
                     <ul class="task-list">
                         <?php foreach (json_decode($list->checkboxes) as $checkbox) { ?>
-                            <li <?php if ($checkbox->checked) { ?> class="done" <?php } ?>><div id="checkbox"></div><?php echo $checkbox->label; ?></li>
+                            <li <?php if ($checkbox->checked) { ?> class="done" <?php } ?>><div class="checkbox"></div><?php echo $checkbox->label; ?></li>
                         <?php } ?>
                     </ul>
                 </div>
