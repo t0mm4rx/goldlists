@@ -3,8 +3,8 @@ if (!isset($_GET["folder"]))
   $folder = urlencode("My Lists");
 else
   $folder = urlencode($_GET["folder"]);
-$url = "http://localhost:8888/api.php?service=listing&id_user=2&id_folder=$folder";
-$url_folders = "http://localhost:8888/api.php?service=list_folder&id_user=2";
+$url = "http://localhost:8888/api.php?service=listing&id_user=" . $_COOKIE["id"] . "&id_folder=$folder";
+$url_folders = "http://localhost:8888/api.php?service=list_folder&id_user=" . $_COOKIE["id"];
 $folders = json_decode(json_decode(file_get_contents($url_folders))->message);
 $lists = json_decode(json_decode(file_get_contents($url))->message);
 ?>
@@ -16,7 +16,11 @@ $lists = json_decode(json_decode(file_get_contents($url))->message);
         <link rel="stylesheet" href="./css/lists_desktop.css" media="screen and (min-width: 800px)">
         <?php include_once("includes.php"); ?>
         <title>GoldLists - My lists</title>
-        <script>const id_folder = "<?php echo $folder; ?>";</script>
+        <script>
+        const id_folder = "<?php echo $folder; ?>";
+        const id = "<?php echo $_COOKIE["id"]; ?>";
+        const token = "<?php echo $_COOKIE["token"]; ?>";
+        </script>
     </head>
     <body>
         <div id="off-canvas">
@@ -34,11 +38,13 @@ $lists = json_decode(json_decode(file_get_contents($url))->message);
                         <i class="fas fa-bars"></i>
                     </button>
                     <h1><?php echo urldecode($folder); ?></h1>
+                    <div id="action-button">
                     <?php if (urldecode($folder) == 'My Lists') { ?>
                     <button type="button" name="button" onclick="create_list()">
                         <i class="fas fa-plus"></i>
                     </button>
                   <?php } ?>
+                  </div>
             </nav>
             <div id="list-container">
                 <?php
@@ -47,7 +53,7 @@ $lists = json_decode(json_decode(file_get_contents($url))->message);
                 <div class="list" onclick="document.location.href='./list.php?id=<?php echo $list->id; ?>';">
                     <h3><?php echo $list->title;?></h3>
                     <h5><?php echo $list->subtitle;?></h5>
-                    <pre><?php echo $list->text;?></pre>
+                    <p><?php echo $list->text;?></p>
                     <?php if (strlen($list->text) > 0 && count(json_decode($list->checkboxes)) > 0) { ?>
                     <div id="separator"></div> <?php } ?>
                     <ul class="task-list">

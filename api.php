@@ -22,7 +22,7 @@
             remove_list($_GET["id"]);
             break;
         case 'create_list':
-            create_list($_GET["title"], $_GET["subtitle"], $_GET["id_folder"]);
+            create_list($_GET["title"], $_GET["subtitle"], $_GET["id_folder"], $_GET["id_user"]);
             break;
         case 'update_list':
             update_list($_GET["id"], $_GET["page"]);
@@ -90,8 +90,19 @@
         $password = mysqli_real_escape_string($db, $password);
         $check = "SELECT * FROM `users` WHERE `login` = '$login' AND `password` = '$password'";
         $check_result = $db->query($check);
-        if ($check_result->num_rows > 0) {
-            output(1, "Connected");
+        if ($check_result->num_rows > 0)
+        {
+          $user = $check_result->fetch_array(MYSQLI_ASSOC);
+          $data = new DateTime();
+          $token = sha1($data->getTimestamp() . $login . "MEOW" . $password);
+          $id = $user["id"];
+          $update_request = "UPDATE `users` SET `token` = '$token' WHERE `users`.`id` = $id;";
+          $db->query($update_request);
+          $result = [
+            "token" => $token,
+            "id" => $id
+          ];
+          output(1, json_encode($result));
         }
         output(0, "Wrong login or password");
     }
@@ -122,14 +133,15 @@
     }
 
 
-    function create_list($title, $subtitle, $id_folder)
+    function create_list($title, $subtitle, $id_folder, $id_user)
     {
       global $db;
       connect_db($db);
       $title = mysqli_real_escape_string($db, $title);
       $subtitle = mysqli_real_escape_string($db, $subtitle);
       $id_folder = mysqli_real_escape_string($db, $id_folder);
-      $request = "INSERT INTO `lists` (`id`, `id_user`, `id_folder`, `title`, `subtitle`, `text`, `checkboxes`) VALUES (NULL, '2', '$id_folder', '$title', '$subtitle', '', '[]');";
+      $id_user = mysqli_real_escape_string($db, $id_user);
+      $request = "INSERT INTO `lists` (`id`, `id_user`, `id_folder`, `title`, `subtitle`, `text`, `checkboxes`) VALUES (NULL, '$id_user', '$id_folder', '$title', '$subtitle', '', '[]');";
       if (!$db->query($request))
         output(2, "Error during request execution");
       output(1, "List has been successfully created");

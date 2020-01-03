@@ -7,3 +7,7 @@
 #add-button {
     margin: 20px auto 0px auto;
 }
+
+#text {
+  white-space: pre-line;
+}

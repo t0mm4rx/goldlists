@@ -39,14 +39,6 @@ body {
     padding-left: 20px;
 }
 
-#off-canvas li:last-child {
-    text-align: center;
-}
-
-#off-canvas li:last-child a {
-    justify-content: center;
-}
-
 #off-canvas li.activated {
     font-weight: 900;
     background-color: rgba(0, 0, 100, .2);
@@ -74,6 +66,7 @@ body {
     top: 0;
     left: 0;
     transition: left .3s ease;
+    width: 100vw;
 }
 
 #page[open] {
@@ -120,6 +113,8 @@ body {
     transition: all .3s ease;
     cursor: pointer;
     box-sizing: border-box;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .list:hover {
@@ -129,16 +124,31 @@ body {
 .list h3 {
     margin: 10px 0px 0px 0px;
     font-size: 1.2em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .list h5 {
     margin: 5px 0px 20px 0px;
     font-weight: 400;
     font-size: 1em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
-.list pre {
+.list p {
     margin: 0px;
     font-size: .8em;
     font-family: 'Montserrat';
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: pre-line;
+}
+
+.list li {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: pre-line;
 }

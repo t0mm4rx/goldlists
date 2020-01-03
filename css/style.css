@@ -187,6 +187,10 @@ nav h1 {
     font-size: .8em;
 }
 
+.task-list > li > *:last-child {
+  margin-left: 10px;
+}
+
 .task-list > li > .checkbox {
     margin-right: 10px;
 }
@@ -203,6 +207,7 @@ nav h1 {
 
 .checkbox {
     width: 13px;
+    min-width: 13px;
     height: 13px;
     background: none;
     border: 3px solid #CCC;

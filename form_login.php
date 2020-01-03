@@ -4,6 +4,9 @@ $request = json_decode(file_get_contents($url));
 
 if ($request->code == 1)
 {
+    $data = json_decode($request->message);
+    setcookie("token", $data->token, time() + 30 * 24 * 60 * 60);
+    setcookie("id", $data->id, time() + 30 * 24 * 60 * 60);
     header("Location: lists.php");
 }
 else {
