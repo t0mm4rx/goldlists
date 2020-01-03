@@ -2,7 +2,7 @@
     padding: 20px;
     overflow-y: auto;
     overflow-x: hidden;
-    height: calc(100vh - 120px);
+    height: auto;
 }
 
 #add-button {
@@ -23,4 +23,8 @@ li {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+li > span {
+  font-size: 1.2em;
 }

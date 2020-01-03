@@ -1,4 +1,16 @@
 <?php
+
+// Function that limits an array to n elements (used to crop items in preview)
+function max_array($array, $n)
+{
+  $res = [];
+  $target = min(count($array), $n);
+  for ($i = 0; $i < $target; $i++) {
+    $res[] = $array[$i];
+  }
+  return $res;
+}
+
 if (!isset($_GET["folder"]))
   $folder = urlencode("My Lists");
 else
@@ -27,7 +39,7 @@ $lists = json_decode(json_decode(file_get_contents($url))->message);
             <h2>GoldLists</h2>
             <ul>
                 <?php foreach ($folders as $item) { ?>
-                      <li <?php if ($item->label == urldecode($folder)) echo 'class="activated"'; ?>><a href="http://localhost:8888/lists.php?&folder=<?php echo $item->label; ?>"><span class="badge"><?php echo $item->count; ?></span><?php echo $item->label; ?></a></li>
+                      <li <?php if ($item->label == urldecode($folder)) echo 'class="activated"'; ?>><a href="./lists.php?folder=<?php echo $item->label; ?>"><span class="badge"><?php echo $item->count; ?></span><?php echo $item->label; ?></a></li>
                 <?php } ?>
             </ul>
             <img src="./res/illustration-menu.svg" alt="">
@@ -48,10 +60,11 @@ $lists = json_decode(json_decode(file_get_contents($url))->message);
             </nav>
             <?php if (count($lists) == 0) { ?>
               <div id="no-list">
-                <span>No list yet !</span>
+                <span>No list here !</span>
                 <img src="./res/illustration-empty.svg" class="fadein">
               </div>
             <?php } ?>
+            <div class="scrollable-area">
             <div id="list-container">
                 <?php
                 foreach ($lists as $list) {
@@ -63,15 +76,19 @@ $lists = json_decode(json_decode(file_get_contents($url))->message);
                     <?php if (strlen($list->text) > 0 && count(json_decode($list->checkboxes)) > 0) { ?>
                     <div id="separator"></div> <?php } ?>
                     <ul class="task-list">
-                        <?php foreach (json_decode($list->checkboxes) as $checkbox) { ?>
+                        <?php foreach (max_array(json_decode($list->checkboxes), 5) as $checkbox) { ?>
                             <li <?php if ($checkbox->checked) { ?> class="done" <?php } ?>><div class="checkbox"></div><?php echo $checkbox->label; ?></li>
                         <?php } ?>
+                        <?php if (count(json_decode($list->checkboxes)) > 5) { ?>
+                        <li class="more-items"><span><?php echo count(json_decode($list->checkboxes)) - 5; ?> more items...</span></li>
+                      <?php } ?>
                     </ul>
                 </div>
                 <?php } ?>
 
             </div>
         </div>
+      </div>
 
     <script src="./js/lists.js"></script>
     </body>

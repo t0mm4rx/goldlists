@@ -26,6 +26,7 @@ function add_task()
   let li = document.createElement('li');
   li.innerHTML = '<div class="checkbox"></div><span contenteditable="true">Enter a task</span><i class="fas fa-times" onclick="delete_task(this)"></i>';
   document.querySelector('ul.task-list').appendChild(li);
+  window.getSelection().selectAllChildren(li.querySelector('span'));
   listen_tasks();
 }
 

@@ -214,3 +214,8 @@ nav h1 {
     border-radius: 3px;
     transition: all .3s ease;
 }
+
+.scrollable-area {
+  overflow-y: auto;
+  max-height: calc(100% - 80px);
+}

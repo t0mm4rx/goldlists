@@ -22,12 +22,10 @@ $list = json_decode(json_decode(file_get_contents($url))->message);
                     <i class="far fa-trash-alt"></i>
                 </button>
         </nav>
-
+        <div class="scrollable-area">
         <div id="page">
             <h3 contenteditable="true"><?php echo $list->subtitle ?></h3>
-            <p id="text" contenteditable="true">
-                <?php echo $list->text; ?>
-            </p>
+            <p id="text" contenteditable="true"><?php echo $list->text; ?></p>
             <?php if (strlen($list->text) > 0 && count(json_decode($list->checkboxes)) > 0) { ?>
             <div id="separator"></div> <?php } ?>
             <ul class="task-list">
@@ -36,6 +34,7 @@ $list = json_decode(json_decode(file_get_contents($url))->message);
                 <?php } ?>
             </ul>
             <button id="add-button" onclick="add_task()"><i class="fas fa-plus"></i>Add task</button>
+        </div>
         </div>
 
     <script src="./js/list.js"></script>
