@@ -46,6 +46,12 @@ $lists = json_decode(json_decode(file_get_contents($url))->message);
                   <?php } ?>
                   </div>
             </nav>
+            <?php if (count($lists) == 0) { ?>
+              <div id="no-list">
+                <span>No list yet !</span>
+                <img src="./res/illustration-empty.svg" class="fadein">
+              </div>
+            <?php } ?>
             <div id="list-container">
                 <?php
                 foreach ($lists as $list) {

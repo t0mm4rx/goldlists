@@ -1,7 +1,8 @@
 #page {
     padding: 20px;
     overflow-y: auto;
-    height: calc(100vh - 170px);
+    overflow-x: hidden;
+    height: calc(100vh - 120px);
 }
 
 #add-button {
@@ -10,4 +11,16 @@
 
 #text {
   white-space: pre-line;
+}
+
+h1 {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+li {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
