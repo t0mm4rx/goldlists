@@ -13,13 +13,39 @@ $list = json_decode(json_decode(file_get_contents($url))->message);
         <script>const id = <?php echo $list->id; ?>;</script>
     </head>
     <body>
+      <div class="modal">
+        <div class="header">
+          <h2>Select folder</h2>
+          <button type="button" onclick="open_modal()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="content">
+          <div id="two-forms">
+          <div>
+            <h4>Choose an existing folder</h4>
+            <select id="folder-name-existing">
+              <option value="My lists">Default</option>
+              <option value="Important">Important</option>
+              <option value="Archived">Archived</option>
+            </select>
+          </div>
+          <div>
+            <span>or</span>
+          </div>
+          <div>
+            <h4>Create a custom folder</h4>
+            <input type="text" placeholder="Folder name" id="folder-name-custom">
+          </div>
+        </div>
+        <div><button id="change-folder-button">Change folder</button></div>
+        </div>
+      </div>
         <nav>
                 <button type="button" name="button" onclick="document.location.href='./lists.php'">
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <h1 contenteditable="true"><?php echo $list->title; ?></h1>
                 <div class="action-buttons">
-                  <button type="button" onclick="change_folder()">
+                  <button type="button" onclick="open_modal()">
                       <i class="far fa-folder"></i>
                   </button>
                   <button type="button" onclick="star_list()">

@@ -39,3 +39,46 @@ li {
 li > span {
   font-size: 1.2em;
 }
+
+@media (max-width: 1000px) {
+  #two-forms {
+    flex-direction: column;
+  }
+}
+
+.modal .content h4 {
+  color: black;
+  font-size: 1em;
+}
+
+.modal .content select {
+  width: 100%;
+  font-size: 1em;
+  background: none;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid #AAA;
+}
+
+#two-forms {
+  display: flex;
+}
+
+#two-forms > div {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+
+#two-forms > div:nth-child(2) {
+  width: auto;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal .content button {
+  display: block;
+  margin: 20px auto 0px auto;
+}

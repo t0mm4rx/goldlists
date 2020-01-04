@@ -13,7 +13,7 @@
 ## UI
 - [x] Create modal to create a list
 - [x] Don't show error during the first connection
-- [ ] Folder modal for list
+- [x] Folder modal for list
 
 ## JS
 - [x] Update content

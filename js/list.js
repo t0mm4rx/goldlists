@@ -67,5 +67,27 @@ function update()
   }
 }
 
+function open_modal()
+{
+  document.querySelector(".modal").toggleAttribute("open");
+}
+
+function change_folder(dest)
+{
+  console.log(dest);
+  // Implement API call
+}
+
+function change_folder_button()
+{
+  let destination = document.querySelector("#folder-name-existing").value;
+  if (document.querySelector("#folder-name-custom").value.length != 0)
+    destination = document.querySelector("#folder-name-custom").value;
+  open_modal();
+  change_folder(destination);
+}
+
+document.querySelector("#change-folder-button").onclick = change_folder_button;
+
 listen_tasks();
 setInterval(update, 1000);

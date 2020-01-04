@@ -76,7 +76,6 @@ h1 {
 
 input {
     border: 0;
-    border-bottom: 1px solid #AAA;
     font-size: 1em;
     transition: border .3s ease;
     width: 100%;
