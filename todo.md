@@ -7,11 +7,15 @@
 - [x] Dynamic url (folders)
 
 ## UI
-- [ ] Create modal to create a list
-- [ ] Don't show error during the first connection
+- [x] Create modal to create a list
+- [x] Don't show error during the first connection
 
 ## JS
 - [x] Update content
 
 ## GENERAL
 - [ ] Create a new folder
+
+## BUGS
+- [x] Sometime we can't create a list
+- [ ] UTF-8 characters in list items

@@ -146,6 +146,7 @@ body {
 .list p {
     margin: 0px;
     font-size: .8em;
+    max-height: 200px;
     font-family: 'Montserrat';
     text-overflow: ellipsis;
     overflow: hidden;
