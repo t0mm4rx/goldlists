@@ -35,6 +35,24 @@ $lists = json_decode(json_decode(file_get_contents($url))->message);
         </script>
     </head>
     <body>
+
+      <div class="modal">
+        <div class="header">
+          <h2>Create a new list</h2>
+          <button type="button"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="content">
+          <div>
+          <input type="text" id="title" placeholder="Title">
+          <input type="text" id="subtitle" placeholder="Subtitle">
+          <button type="button" id="create-button"><i class="fas fa-plus"></i>Create</button>
+        </div>
+        <div>
+          <img src="./res/illustration-new.svg">
+        </div>
+        </div>
+      </div>
+
         <div id="off-canvas">
             <h2>GoldLists</h2>
             <ul>
@@ -50,9 +68,9 @@ $lists = json_decode(json_decode(file_get_contents($url))->message);
                         <i class="fas fa-bars"></i>
                     </button>
                     <h1><?php echo urldecode($folder); ?></h1>
-                    <div id="action-button">
+                    <div class="action-buttons">
                     <?php if (urldecode($folder) == 'My Lists') { ?>
-                    <button type="button" name="button" onclick="create_list()">
+                    <button type="button" name="button" onclick="toggle_modal()">
                         <i class="fas fa-plus"></i>
                     </button>
                   <?php } ?>
@@ -91,5 +109,6 @@ $lists = json_decode(json_decode(file_get_contents($url))->message);
       </div>
 
     <script src="./js/lists.js"></script>
+    <script src="./js/script.js"></script>
     </body>
 </html>

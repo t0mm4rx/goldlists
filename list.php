@@ -18,9 +18,14 @@ $list = json_decode(json_decode(file_get_contents($url))->message);
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <h1 contenteditable="true"><?php echo $list->title; ?></h1>
-                <button type="button" name="button" onclick="remove_list()">
+                <div class="action-buttons">
+                  <button type="button" onclick="star_list()">
+                      <i class="far fa-star"></i>
+                  </button>
+                <button type="button" onclick="remove_list()">
                     <i class="far fa-trash-alt"></i>
                 </button>
+              </div>
         </nav>
         <div class="scrollable-area">
         <div id="page">

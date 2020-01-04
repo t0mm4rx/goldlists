@@ -184,3 +184,29 @@ body {
 .more-items > span {
   margin-top: 10px;
 }
+
+.modal .content {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 1000px) {
+  .modal .content {
+    flex-direction: column;
+  }
+}
+.modal .content > div {
+  width: 100%;
+}
+
+.modal .content img {
+  padding: 30px;
+  width: 100%;
+  box-sizing: border-box;
+  animation: float 5s ease-in-out 0s infinite;
+}
+
+.modal .content button {
+  margin: 15px auto;
+  display: flex;
+}
