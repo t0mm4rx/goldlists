@@ -19,7 +19,7 @@ $list = json_decode(json_decode(file_get_contents($url))->message);
                 </button>
                 <h1 contenteditable="true"><?php echo $list->title; ?></h1>
                 <div class="action-buttons">
-                  <button type="button" onclick="star_list()">
+                  <button type="button" onclick="change_folder()">
                       <i class="far fa-folder"></i>
                   </button>
                   <button type="button" onclick="star_list()">

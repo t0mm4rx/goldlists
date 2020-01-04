@@ -188,9 +188,9 @@ nav button {
     font-size: 1.3em;
 }
 
-nav .action-buttons button {
+nav .action-buttons button, nav .action-buttons svg {
   padding: 0;
-  margin: 0;
+  margin: 2px;
 }
 
 nav .action-buttons {
