@@ -1,6 +1,14 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 $url = "http://localhost:8888/api.php?service=open_list&id=" . $_GET['id'];
 $list = json_decode(json_decode(file_get_contents($url))->message);
+$url_folders = "http://localhost:8888/api.php?service=list_folder&id_user=" . $_COOKIE["id"];
+$folders = json_decode(json_decode(file_get_contents($url_folders))->message);
+$folders_to_remove = ["Deleted"];
+// foreach ($folders as $folder)
+//   if (in_array($folder->label, $folders_to_remove))
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +18,10 @@ $list = json_decode(json_decode(file_get_contents($url))->message);
         <link rel="stylesheet" href="./css/list.css" media="screen and (min-width: 800px)">
         <?php include_once("includes.php"); ?>
         <title>GoldLists - List</title>
-        <script>const id = <?php echo $list->id; ?>;</script>
+        <script>
+        const id_folder = "<?php echo $list->id_folder;?>";
+        const id = <?php echo $list->id;?>;
+        </script>
     </head>
     <body>
       <div class="modal">
@@ -23,9 +34,9 @@ $list = json_decode(json_decode(file_get_contents($url))->message);
           <div>
             <h4>Choose an existing folder</h4>
             <select id="folder-name-existing">
-              <option value="My lists">Default</option>
-              <option value="Important">Important</option>
-              <option value="Archived">Archived</option>
+              <?php foreach ($folders as $folder) { ?>
+                <option value="<?php echo $folder->label; ?>"><?php echo $folder->label; ?></option>
+              <?php } ?>
             </select>
           </div>
           <div>
@@ -49,7 +60,10 @@ $list = json_decode(json_decode(file_get_contents($url))->message);
                       <i class="far fa-folder"></i>
                   </button>
                   <button type="button" onclick="star_list()">
-                      <i class="far fa-star"></i>
+                    <?php if ($list->id_folder != "Important") {?>
+                      <i class="far fa-star"></i> <?php } else {?>
+                        <i class="fas fa-star"></i>
+                      <?php } ?>
                   </button>
                 <button type="button" onclick="remove_list()">
                     <i class="far fa-trash-alt"></i>

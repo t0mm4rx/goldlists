@@ -30,6 +30,9 @@
         case 'list_folder':
             list_folder($_GET["id_user"]);
             break;
+        case 'change_folder':
+            change_folder($_GET["id_folder"], $_GET["id"]);
+            break;
         default:
             output(2, "This service doesn't exist");
     }
@@ -129,7 +132,9 @@
       connect_db();
       $id = mysqli_real_escape_string($db, $id);
       $check = "DELETE FROM `lists` WHERE `id` = '$id'";
-      $check_result = $db->query($check);
+      if ($check_result = $db->query($check))
+        output(1, "Your list has been successfully deleted");
+      output(2, "Your request has failed");
     }
 
 
@@ -157,7 +162,7 @@
       $subtitle = mysqli_real_escape_string($db, $data->subtitle);
       $text = mysqli_real_escape_string($db, $data->text);
       foreach ($data->tasks as $task)
-        $task->label = mysqli_real_escape_string($db, $task->label);
+        $task->label = utf8_encode(mysqli_real_escape_string($db, $task->label));
       $tasks = json_encode($data->tasks);
       $request = "UPDATE `lists` SET `title` = '$title', `subtitle` = '$subtitle', `text` = '$text', `checkboxes` = '$tasks' WHERE `lists`.`id` = $id";
       if (!$db->query($request))
@@ -181,7 +186,6 @@
       ];
       return ;
     }
-
 
     function list_folder($id_user)
     {
@@ -211,5 +215,17 @@
       while ($row = $result->fetch_array(MYSQLI_ASSOC))
           in_folder($row["id_folder"], $folders);
       output(1, json_encode($folders));
+    }
+
+    function change_folder($id_folder, $id)
+    {
+      global $db;
+      connect_db();
+      $id = mysqli_real_escape_string($db, $id);
+      $id_folder = mysqli_real_escape_string($db, $id_folder);
+      $check = "UPDATE `lists` SET `id_folder` = '$id_folder' WHERE `lists`.`id` = $id;";
+      if ($check_result = $db->query($check))
+        output(1, "Your list is successfully moved in $id_folder");
+      output(2, "Your request has failed");
     }
 ?>

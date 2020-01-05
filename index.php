@@ -24,9 +24,9 @@
     </div>
 
     <div id="form-section">
-        <h1>GoldLists</h1>
         <div id="drawer">
             <form action="form_login.php" method="POST" id="form" class="form" open>
+              <h1>GoldLists</h1>
                 <div class="icon-input"><i class="fas fa-user"></i><input name="login" type="text" placeholder="LOGIN"></div>
                 <div class="icon-input"><i class="fas fa-key"></i><input name="password" type="password" placeholder="PASSWORD"></div>
                 <button type="submit">LOGIN<i class="fas fa-arrow-right"></i></button>
