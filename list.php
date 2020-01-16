@@ -2,9 +2,10 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-$url = "http://localhost:8888/api.php?service=open_list&id=" . $_GET['id'];
+include_once('./config.php');
+$url = "$global_url/api.php?service=open_list&id=" . $_GET['id'];
 $list = json_decode(json_decode(file_get_contents($url))->message);
-$url_folders = "http://localhost:8888/api.php?service=list_folder&id_user=" . $_COOKIE["id"];
+$url_folders = "$global_url/api.php?service=list_folder&id_user=" . $_COOKIE["id"];
 $folders = json_decode(json_decode(file_get_contents($url_folders))->message);
 $folders_to_remove = ["Deleted"];
 // foreach ($folders as $folder)
@@ -21,6 +22,7 @@ $folders_to_remove = ["Deleted"];
         <script>
         const id_folder = "<?php echo $list->id_folder;?>";
         const id = <?php echo $list->id;?>;
+        const global_url = "<?php echo $global_url; ?>";
         </script>
     </head>
     <body>
@@ -51,7 +53,7 @@ $folders_to_remove = ["Deleted"];
         </div>
       </div>
         <nav>
-                <button type="button" name="button" onclick="document.location.href='./lists.php'">
+                <button type="button" name="button" onclick="document.location.href='./lists.php?folder=<?php echo $_GET['callback']; ?>'">
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <h1 contenteditable="true"><?php echo $list->title; ?></h1>

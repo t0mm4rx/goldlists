@@ -1,4 +1,5 @@
 <?php
+include_once('./config.php');
 
 // Function that limits an array to n elements (used to crop items in preview)
 function max_array($array, $n)
@@ -15,8 +16,8 @@ if (!isset($_GET["folder"]))
   $folder = urlencode("My Lists");
 else
   $folder = urlencode($_GET["folder"]);
-$url = "http://localhost:8888/api.php?service=listing&id_user=" . $_COOKIE["id"] . "&id_folder=$folder";
-$url_folders = "http://localhost:8888/api.php?service=list_folder&id_user=" . $_COOKIE["id"];
+$url = "$global_url/api.php?service=listing&id_user=" . $_COOKIE["id"] . "&id_folder=$folder";
+$url_folders = "$global_url/api.php?service=list_folder&id_user=" . $_COOKIE["id"];
 $folders = json_decode(json_decode(file_get_contents($url_folders))->message);
 $lists = json_decode(json_decode(file_get_contents($url))->message);
 ?>
@@ -87,7 +88,7 @@ $lists = json_decode(json_decode(file_get_contents($url))->message);
                 <?php
                 foreach ($lists as $list) {
                  ?>
-                <div class="list" onclick="document.location.href='./list.php?id=<?php echo $list->id; ?>';">
+                <div class="list" onclick="document.location.href='./list.php?id=<?php echo $list->id; ?>&callback=<?php echo $folder; ?>';">
                     <h3><?php echo $list->title;?></h3>
                     <h5><?php echo $list->subtitle;?></h5>
                     <p><?php echo $list->text;?></p>

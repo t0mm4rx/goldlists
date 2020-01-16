@@ -3,6 +3,7 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
     header('Content-Type: application/json; charset=utf-8');
+    include_once('./config.php');
     $db = null;
     $service = $_GET["service"];
     switch ($service) {
@@ -78,7 +79,7 @@
         if ($check_result->num_rows > 0) {
             output(0, "Login or mail already exists");
         }
-        $query = "INSERT INTO `users`(`login`, `password`, `mail`, `ip`) VALUES ('$login', '$password', '$mail', '$ip')";
+        $query = "INSERT INTO `users`(`login`, `password`, `mail`, `ip`, `token`) VALUES ('$login', '$password', '$mail', '$ip', '')";
         if (!$db->query($query)) {
             output(2, "Error during request execution");
         }
@@ -149,7 +150,7 @@
       $request = "INSERT INTO `lists` (`id`, `id_user`, `id_folder`, `title`, `subtitle`, `text`, `checkboxes`) VALUES (NULL, '$id_user', '$id_folder', '$title', '$subtitle', '', '[]');";
       if (!$db->query($request))
         output(2, "Error during request execution");
-      output(1, "List has been successfully created");
+      output(1, $db->insert_id);
     }
 
     function update_list($id, $page)

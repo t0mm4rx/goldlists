@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+include_once('./config.php');
+?>
 <html lang="en" dir="ltr">
 
 <head>
@@ -27,7 +30,7 @@
         <div id="drawer">
             <form action="form_login.php" method="POST" id="form" class="form" open>
               <h1>GoldLists</h1>
-                <div class="icon-input"><i class="fas fa-user"></i><input name="login" type="text" placeholder="LOGIN"></div>
+                <div class="icon-input"><i class="fas fa-user"></i><input name="login" type="text" placeholder="LOGIN" value="<?php if (isset($_GET["login"])) echo $_GET["login"]; ?>"></div>
                 <div class="icon-input"><i class="fas fa-key"></i><input name="password" type="password" placeholder="PASSWORD"></div>
                 <button type="submit">LOGIN<i class="fas fa-arrow-right"></i></button>
                 <span class="no-account" id="no-account">No account yet ?</span>

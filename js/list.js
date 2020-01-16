@@ -65,7 +65,7 @@ function update()
   {
     checkpoint = get_list();
     const Http = new XMLHttpRequest();
-    const url='http://localhost:8888/api.php?service=update_list&id=' + id + '&page=' + JSON.stringify(checkpoint);
+    const url = global_url + '/api.php?service=update_list&id=' + id + '&page=' + JSON.stringify(checkpoint);
     Http.open("GET", url);
     Http.send();
   }
@@ -80,7 +80,7 @@ function change_folder(dest)
 {
   console.log(dest);
   const Http = new XMLHttpRequest();
-  const url='http://localhost:8888/api.php?service=change_folder&id_folder=' + dest +'&id=' + id;
+  const url = global_url + '/api.php?service=change_folder&id_folder=' + dest +'&id=' + id;
   Http.open("GET", url);
   Http.send();
 

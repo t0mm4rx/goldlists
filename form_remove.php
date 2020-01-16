@@ -1,5 +1,6 @@
 <?php
-$url = "http://localhost:8888/api.php?service=remove_list&id=" . $_GET["id"];
+include_once('./config.php');
+$url = "$global_url/api.php?service=remove_list&id=" . $_GET["id"];
 $request = json_decode(file_get_contents($url));
 
 if ($request->code == 1)

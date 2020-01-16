@@ -16,7 +16,8 @@ div#form-section, div#graphics-section {
 
 #form-section h1 {
     text-align: center;
-    margin-bottom: 10px;
+    font-size: 2.5em;
+    margin-bottom: 40px;
 }
 
 #graphics-section {

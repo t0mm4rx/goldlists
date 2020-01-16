@@ -1,5 +1,6 @@
 <?php
-$url = "http://localhost:8888/api.php?service=signin&password=" . sha1($_POST['password']) . "&login=" . $_POST["login"];
+include_once('./config.php');
+$url = "$global_url/api.php?service=signin&password=" . sha1($_POST['password']) . "&login=" . $_POST["login"];
 $request = json_decode(file_get_contents($url));
 
 if ($request->code == 1)
